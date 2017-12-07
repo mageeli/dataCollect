@@ -1,0 +1,39 @@
+@font-face { font-family: DroidKufi-Regular; src: url('../fonts/DroidKufi-Regular.ttf'); }
+@font-face { font-family: DroidKufi-Bold; font-weight: bold; src: url('../fonts/DroidKufi-Bold.ttf');}
+
+body {
+    font-family:  DroidKufi-Regular;
+    direction:rtl !important;
+    background:#f8f8f8
+}
+.center{
+    background:#fff;
+    margin:60px auto 0 auto;
+    width:90%;
+    height: 530px !important;
+    padding:5px;
+    border-radius:20px;
+    box-shadow: rgba(171, 139, 110, 0.380392) 0 0 12px;
+    border:1px solid rgba(0,0,0,.5);
+}
+
+.navbar-default{
+    padding:10px;
+    box-shadow: rgba(171, 139, 110, 0.380392) 0 0 12px;
+    border-bottom:1px solid rgba(0,0,0,.5);
+    background:#fff;
+}
+.navbar-default .container-fluid a{
+    color:#000
+}
+.viewTable{
+    margin-bottom:30px;
+}
+.viewTable td{
+    border:1px solid #ddd !important;
+    border-radius:10px;
+}
+footer{
+    margin:2px;
+    color:#777;
+}

@@ -1,0 +1,782 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet"  href="css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+   <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <title>جمع البيانات</title>
+
+  
+       <script type="text/javascript">
+  
+    $(function() {
+        $('#type').change(function(){
+            $('.option').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+</script>
+
+
+</head>
+<body>
+   <div class="message">
+<div class="container">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="nav navbar navbar-fixed-top logo">
+            <h4 class="text-left">برنامج جمع البيانات</h4>
+         </div>
+         <br><br><br><br>
+   
+            <div class="form-group">
+            <select class="form-control  zone" name="zone" id="zone"  onchange="ChangezoneList()">
+               <option value="">--- اختر المنطقة ---</option>
+               <option value="riyad">الرياض</option>
+               <option value="makkah">مكة المكرمة</option>
+               <option value="mdn">المدينة المنورة</option>
+               <option value="qsm">القصيم</option>
+               <option value="shrq">المنطقة الشرقية</option>
+               <option value="asr">عسير</option>
+               <option value="tbk">تبوك</option>
+               <option value="hail">حائل</option>
+               <option value="shmal">الحدود الشمالية</option>
+               <option value="jzn">جازان</option>
+               <option value="njran">نجران</option>
+               <option value="bah">الباحة</option>
+               <option value="jof">الجوف</option>
+            </select>
+             <input type="hidden" id="selzone" value="">
+            </div>
+            <div class="form-group">
+               <select class="form-control" name="city" id="city">
+                  <option>-- المدينة / المحافظة  --</option>
+               </select>
+                <input type="hidden" id="selcity" value="">
+            </div>
+            <div class="form-group">
+            <select class="form-control" name="type" id="type">
+               <option class="" value="">---  تصنيف المعلم ----</option>
+               <option  value="edu">تعليمي</option>
+               <option value="hlth">صحي</option>
+                <option value="gav">دائرة حكومية</option>
+               <option value="msq">مسجد</option>
+                <option value="commer">تجاري</option>
+               <option value="fun">ترفيهي</option>
+            </select>
+              <input type="hidden" id="seltype" value="">
+            </div>
+            <div class="form-group option" id="edu"  style="display:none" >
+                  <div>
+                      <label>
+                        <input type="checkbox" class="radio" id="gamat" value="جامعات" name="fooby[1][]" />جامعات</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="kul" value="كليات" name="fooby[1][]" />كليات</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="mahd" value="معاهد" name="fooby[1][]" />معاهد</label>
+                        <label>
+                        <input type="checkbox" class="radio" id="mdars" value="مدارس" name="fooby[1][]" />مدارس</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="rawdah" value="روضة" name="fooby[1][]" />روضة</label>
+
+                        <input type="hidden" id="educ" value="">
+                 </div>
+                   <div>
+                    <label>
+                      <input type="checkbox" class="radio" id="eduh" value="حكومي" name="fooby[3][]" />حكومي</label>
+                    <label>
+                      <input type="checkbox" class="radio" id="edua" value="أهلي" name="fooby[3][]" />أهلي</label>
+
+                      <input type="hidden" id="eduowner" value="">
+                  </div>
+                    <div>
+                    <label>
+                      <input type="checkbox" class="radio" id="bneen" value="بنين" name="fooby[2][]" />بنيـــــــــن</label>
+                    <label>
+                      <input type="checkbox" class="radio" id="bnat" value="بنات" name="fooby[2][]" />بنات</label>
+                    <label>
+                      <input type="checkbox" class="radio" id="muk" value="مختلط" name="fooby[2][]" />مختلط</label>
+
+                      <input type="hidden" id="edubnen" value="">
+                  </div>
+            </div>
+            <div class="form-group option" id="hlth"  style="display:none" >
+                  <div>
+                      <label>
+                        <input type="checkbox" class="radio" id="mustsh" value="مستشفى" name="fooby[4][]" />مستشفى</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="mrkz" value="مركز صحي" name="fooby[4][]" />مركز صحي</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="iyadh" value="عيادة" name="fooby[4][]" />عيادة</label>
+                        <label>
+                        <input type="checkbox" class="radio" id="isaf" value="إسعاف" name="fooby[4][]" />إسعاف</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="taheel" value="تأهيل" name="fooby[4][]" />تأهيل</label>
+
+                         <input type="hidden" id="helth" value="">
+                 </div>
+                   <div>
+                    <label>
+                      <input type="checkbox" class="radio" id="helthh" value="حكومي" name="fooby[5][]" />حكومي</label>
+                    <label>
+                      <input type="checkbox" class="radio" id="heltha" value="أهلي" name="fooby[5][]" />أهلي</label>
+
+                      <input type="hidden" id="heltho" value="">
+                  </div>
+            </div>
+             <div class="form-group option" id="gav"  style="display:none" >
+                  <div>
+                    <label>
+                        <input type="checkbox" class="radio" id="wza" value="وزارة" name="fooby[4][]" />وزارة</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="ida" value="إدارة" name="fooby[4][]" />إدارة</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="mah" value="محكمة" name="fooby[4][]" />محكمة</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="askr" value="عسكرية" name="fooby[4][]" />عسكرية</label>
+                        <label>
+                        <input type="checkbox" class="radio" id="heah" value="هيئة" name="fooby[4][]" />هيئة</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="muas" value="مؤسسة" name="fooby[4][]" />مؤسسة</label>
+
+                         <input type="hidden" id="gover" value="">
+                 </div>
+            </div>
+             <div class="form-group option" id="msq"  style="display:none" >
+                  <div>
+                      <label>
+                        <input type="checkbox" class="radio" id="musall" value="مصلى" name="fooby[4][]" />مصلى</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="game" value="جامع" name="fooby[4][]" />جامع</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="ied" value="مصلى عيد" name="fooby[4][]" />مصلى عيد</label>
+
+                         <input type="hidden" id="mosk" value="">
+                 </div>
+            </div>
+              <div class="form-group option" id="commer"  style="display:none" >
+                  <div>
+                      <label>
+                        <input type="checkbox" class="radio" id="sna" value="صناعية" name="fooby[4][]" />صناعية</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="zra" value="زراعية" name="fooby[4][]" />زراعية</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="aqa" value="عقارية" name="fooby[4][]" />عقارية</label>
+                        <label>
+                        <input type="checkbox" class="radio" id="tam" value="تأمين" name="fooby[4][]" />تأمين</label>
+
+                        <input type="hidden" id="com" value="">
+                 </div>
+            </div>
+            <div class="form-group option" id="fun"  style="display:none" >
+                  <div>
+                      <label>
+                        <input type="checkbox" class="radio" id="alab" value="مديمة ألعاب" name="fooby[4][]" />مديمة ألعاب</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="hdeq" value="حديقة" name="fooby[4][]" />حديقة</label>
+                      <label>
+                        <input type="checkbox" class="radio" id="nadi" value="نادي رياضي" name="fooby[4][]" />نادي رياضي</label>
+
+                         <input type="hidden" id="funn" value="">
+                 </div>
+            </div>
+            <div class="form-group">
+               <input  class="form-control"  type="text" id="name" value="" placeholder="أدخل اسم المعلم">
+                <input type="hidden" id="nm" value="">
+            </div>
+            <div class="form-group">
+            <button class="form-control btn btn-warning" onclick="myFunction()">موقعك الآن
+             <i class="glyphicon glyphicon-map-marker"></i></button>
+            </div>
+            <div class="form-group">
+              <div id="map" ></div>
+            </div>
+           
+ <div class="panel panel-warning">
+      <div class="panel-heading">معلومات الموقع</div>
+      <div class="panel-body">
+      <div id="infoPanel">
+  <b>حالة المؤشر:</b>
+  <div id="markerStatus"><i>إضغط وحرّك المؤشر</i></div>
+  <b>موقعك الحالي:</b>
+  <div id="info"></div>
+  <input type="hidden" id="coor" value="">
+  <b>أقرب عنوان هو:</b>
+  <div id="address"></div>
+</div>
+    </div>
+                </div>   
+                  <div class="form-group">
+            <p class="text-center" id="msg"></p>
+            </div>
+             <div class="form-group">
+            <button  class="form-control btn btn-warning" id="btn1" onclick="myFunction2();  return false;">متابعة 
+             <i class="glyphicon glyphicon-ok"></i></button>
+            </div>
+            <div class="form-group">
+            <button class="form-control btn btn-warning" id="myBtn" style="display: none;" onclick="myFunction3(); return false;">حفظ وإرسال البيانات 
+           </button>
+            </div>
+     
+      </div>
+   </div>
+</div>
+</div>
+
+<script>
+  function myFunction2(){
+ var edu = document.getElementById('edu').value;
+ var hlth = document.getElementById('hlth').value;
+ var gav = document.getElementById('gav').value;
+ var msq = document.getElementById('msq').value;
+ var commer = document.getElementById('commer').value;
+ var fun = document.getElementById('fun').value;
+
+ var edu;
+ var edutype;
+ var edupnf;
+  var eduowner;
+ var hlthtype;
+ var hlthowner;
+ var gavtype;
+ var rate_value;
+ var tjar;
+ var alab;
+
+
+
+/* Choose EDU Type */
+ if (document.getElementById('gamat').checked) {
+  edutype = document.getElementById('gamat').value;
+}
+  if (document.getElementById('kul').checked) {
+  edutype = document.getElementById('kul').value;
+}
+   if (document.getElementById('mahd').checked) {
+  edutype = document.getElementById('mahd').value;
+}
+   if (document.getElementById('mdars').checked) {
+  edutype = document.getElementById('mdars').value;
+}
+   if (document.getElementById('rawdah').checked) {
+  edutype = document.getElementById('rawdah').value;
+}
+
+/* Choose EDU owner */
+   if (document.getElementById('eduh').checked) {
+  eduowner = document.getElementById('eduh').value;
+}
+   if (document.getElementById('edua').checked) {
+  eduowner = document.getElementById('edua').value;
+}
+
+/* Choose EDU beneft */
+   if (document.getElementById('bneen').checked) {
+  edupnf = document.getElementById('bneen').value;
+}
+   if (document.getElementById('bnat').checked) {
+  edupnf = document.getElementById('bnat').value;
+}
+  if (document.getElementById('muk').checked) {
+  edupnf = document.getElementById('muk').value;
+}
+
+/* Choose Helth Type */
+ if (document.getElementById('mustsh').checked) {
+  hlthtype = document.getElementById('mustsh').value;
+}
+  if (document.getElementById('mrkz').checked) {
+  hlthtype = document.getElementById('mrkz').value;
+}
+   if (document.getElementById('iyadh').checked) {
+  hlthtype = document.getElementById('iyadh').value;
+}
+   if (document.getElementById('isaf').checked) {
+  hlthtype = document.getElementById('isaf').value;
+}
+   if (document.getElementById('taheel').checked) {
+  hlthtype = document.getElementById('taheel').value;
+}
+
+/* Choose Helth owner */
+ if (document.getElementById('helthh').checked) {
+  hlthowner = document.getElementById('helthh').value;
+}
+  if (document.getElementById('heltha').checked) {
+  hlthowner = document.getElementById('heltha').value;
+}
+
+
+/* Choose Gaver Type */
+ if (document.getElementById('wza').checked) {
+  gavtype = document.getElementById('wza').value;
+}
+  if (document.getElementById('ida').checked) {
+  gavtype = document.getElementById('ida').value;
+}
+   if (document.getElementById('mah').checked) {
+  gavtype = document.getElementById('mah').value;
+}
+   if (document.getElementById('askr').checked) {
+  gavtype = document.getElementById('askr').value;
+}
+   if (document.getElementById('heah').checked) {
+  gavtype = document.getElementById('heah').value;
+}
+   if (document.getElementById('muas').checked) {
+  gavtype = document.getElementById('muas').value;
+}
+
+/* Choose Mousq Type */
+   
+  if (document.getElementById('musall').checked) {
+  rate_value = document.getElementById('musall').value;
+}
+  if (document.getElementById('game').checked) {
+  rate_value = document.getElementById('game').value;
+}
+   if (document.getElementById('ied').checked) {
+  rate_value = document.getElementById('ied').value;
+}
+
+
+
+/* Choose Ecommerce Type */
+
+ if (document.getElementById('sna').checked) {
+    tjar = document.getElementById('sna').value;
+}
+  if (document.getElementById('zra').checked) {
+     tjar = document.getElementById('zra').value;
+}
+  if (document.getElementById('aqa').checked) {
+     tjar = document.getElementById('aqa').value;
+}
+  if (document.getElementById('tam').checked) {
+     tjar = document.getElementById('tam').value;
+}
+
+/* Choose Fun Type */
+   
+ if (document.getElementById('alab').checked) {
+  alab = document.getElementById('alab').value;
+}
+  if (document.getElementById('hdeq').checked) {
+  alab = document.getElementById('hdeq').value;
+}
+   if (document.getElementById('nadi').checked) {
+  alab = document.getElementById('nadi').value;
+}
+
+/* Hidden input */
+document.getElementById("educ").value =  edutype;
+document.getElementById("eduowner").value =  eduowner;
+document.getElementById("edubnen").value =  edupnf;
+document.getElementById("gover").value =  gavtype;
+document.getElementById("mosk").value =  rate_value;
+document.getElementById("com").value = tjar;
+document.getElementById("funn").value =  alab;
+document.getElementById("helth").value =  hlthtype;
+document.getElementById("heltho").value =  hlthowner;
+
+
+
+ var zone = document.getElementById("zone");
+ var mntq = zone.options[zone.selectedIndex].text;
+ document.getElementById("selzone").value = mntq;
+
+
+
+ var city = document.getElementById("city");
+ var mdn = city.options[city.selectedIndex].text;
+ document.getElementById("selcity").value = mdn;
+
+
+ var type = document.getElementById("type");
+ var tp = type.options[type.selectedIndex].text;
+ document.getElementById("seltype").value = tp;
+
+   var name = document.getElementById("name").value;
+   document.getElementById("nm").value = name;
+
+ document.getElementById("myBtn").style.display = 'block';
+ document.getElementById("btn1").style.display = 'none';
+
+  }
+</script>
+
+
+
+
+<script>
+
+/* INSERT DATA */
+  
+  function myFunction3(){
+    var zzone = document.getElementById("selzone").value; 
+    var ccity = document.getElementById("selcity").value; 
+    var ttp = document.getElementById("seltype").value; 
+    var nm = document.getElementById("nm").value; 
+    var educ = document.getElementById("educ").value; 
+    var eduowner = document.getElementById("eduowner").value; 
+    var edubnen = document.getElementById("edubnen").value; 
+    var helth = document.getElementById("helth").value; 
+    var heltho = document.getElementById("heltho").value; 
+    var gover = document.getElementById("gover").value; 
+    var mosk = document.getElementById("mosk").value; 
+    var com = document.getElementById("com").value;
+    var funn = document.getElementById("funn").value; 
+    var n = document.getElementById("info").innerHTML; 
+    var digits = (""+n).split(", ");
+    var y = digits[0];
+    var x = digits[1];
+    console.log(x);
+ 
+       $.ajax({
+               type: "POST",
+               url: "http://safifi.net/insert.php",
+               data: { zzone : zzone,ccity : ccity, ttp : ttp,nm : nm, educ : educ,eduowner : eduowner, edubnen : edubnen,helth : helth, heltho : heltho, gover  :gover, mosk : mosk, com : com, funn : funn, x : x, y : y},
+               crossDomain: true,
+               cache: false ,
+               success: function(response) {
+    alert(response);
+    $("#msg").html(response);     
+  }
+           });
+
+
+
+
+  }
+</script>
+
+<script>
+var zonesAndModels = {};
+zonesAndModels['riyad'] = ["الرياض", 
+"الدرعية", 
+"السيح", 
+"الدوادمي", 
+"المجمعة", 
+"القويعية", 
+"الخماسين", 
+"ليلى", 
+"الزلفي", 
+"شقراء", 
+"حوطة بني تميم", 
+"الغاط", 
+"عفيف", 
+"السليّل", 
+"ضرما", 
+"المزاحمية", 
+"رماح", 
+"ثادق", 
+"حريملاء", 
+"الحريق", 
+"مرات", 
+"الدلم", 
+"الرين"
+];
+zonesAndModels['makkah'] = ["مكة المكرمة", 
+"جدة", 
+"الطائف", 
+"القنفذة", 
+"الليث", 
+"رابغ", 
+"الجموم", 
+"خليص", 
+"الكامل", 
+"الخرمة", 
+"رنية", 
+"تربة", 
+"ميسان", 
+"المويه الجيدة", 
+"الغرات", 
+"نمرة", 
+"بحرّة"
+];
+zonesAndModels['mdn'] = ["المدينة المنورة", 
+"ينبع", 
+"العلا", 
+"مهد الذهب", 
+"بدر", 
+"خيبر", 
+"الحناكية", 
+"العيص", 
+"وادي الفرع"
+];
+zonesAndModels['qsm'] = ["بريدة", 
+"عنيزة", 
+"الرس", 
+"المذنب", 
+"البكيرية", 
+"البدائع", 
+"الأسياح", 
+"النبهانية", 
+"عيون الجواء", 
+"رياض الخبراء", 
+"الشماسية", 
+"عقلة الصقور", 
+"ضرية"
+];
+zonesAndModels['shrq'] = ["الدمام", 
+"الهفوف", 
+"حفر الباطن", 
+"الجبيل", 
+"القطيف", 
+"الخبر", 
+"الخفجي", 
+"رحيمة", 
+"بقيق", 
+"النعيرية", 
+"قرية العليا", 
+"العديد"
+];
+zonesAndModels['asr'] = ["أبها", 
+"خميس مشيط", 
+"بيشة", 
+"النماص", 
+"محايل", 
+"سراة عبيدة", 
+"تثليث", 
+"رجال ألمع", 
+"أحد رفيدة", 
+"ظهران الجنوب", 
+"بلقرن", 
+"المجاردة", 
+"تنومة", 
+"طريب", 
+"بارق", 
+"البرك"
+];
+zonesAndModels['tbk'] = ["تبوك", 
+"الوجه", 
+"ضبا", 
+"تيماء", 
+"أملج", 
+"حقل", 
+"البدع"
+];
+zonesAndModels['hail'] = ["حائل", 
+"بقعاء", 
+"الغزالة", 
+"الشنان", 
+"السليمي", 
+"الحائط", 
+"سميراء", 
+"الشملي", 
+"موقق"
+];
+zonesAndModels['shmal'] = ["عرعر", 
+"رفحا", 
+"طريف", 
+"العويقيلة"
+];
+zonesAndModels['jzn'] = ["جازان", 
+"صبيا", 
+"أبو عريش", 
+"صامطة", 
+"الحرّث", 
+"ضمد", 
+"الريث", 
+"بيش", 
+"فرسان", 
+"الدائر", 
+"أحد المسارحة", 
+"العيدابي", 
+"العارضة", 
+"الدرب", 
+"هروب", 
+"فيفا", 
+"الطوال"
+];
+zonesAndModels['njran'] = ["نجران", 
+"شرورة", 
+"حبونا", 
+"بدر الجنوب", 
+"يدمة", 
+"ثار", 
+"خباش"
+];
+zonesAndModels['bah'] = ["الباحة", 
+"بلجرشي", 
+"المندق", 
+"المخواة", 
+"العقيق", 
+"قلوة", 
+"القرى", 
+"بني حسن", 
+"غامد الزناد", 
+"الحجرة"
+];
+zonesAndModels['jof'] = ["سكاكا", 
+"القريات", 
+"دومة الجندل", 
+"طبرجل"
+];
+
+function ChangezoneList() {
+    var zoneList = document.getElementById("zone");
+    var modelList = document.getElementById("city");
+    var selzone = zoneList.options[zoneList.selectedIndex].value;
+    while (modelList.options.length) {
+        modelList.remove(0);
+    }
+    var zones = zonesAndModels[selzone];
+    if (zones) {
+        var i;
+        for (i = 0; i < zones.length; i++) {
+            var zone = new Option(zones[i], i);
+            modelList.options.add(zone);
+        }
+    }
+} 
+</script>
+
+<script type="text/javascript">
+  $("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+
+</script>
+
+  
+   <script>
+          function myFunction() {
+    var x = document.getElementById("map");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+   </script>
+     <script>
+    
+
+var map, infoWindow;
+var geocoder;
+
+function initMap() {
+  geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: 24.6740903,
+      lng: 46.694911400000024
+    },
+    zoom:15
+  });
+  infoWindow = new google.maps.InfoWindow;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        draggable: true,
+        title: 'موقعك الحالي'
+      });
+      /*infoWindow.setPosition(pos);
+      infoWindow.setContent('Your position');
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+      infoWindow.open(map, marker);*/
+      map.setCenter(pos);
+
+
+      updateMarkerPosition(marker.getPosition());
+      geocodePosition(pos);
+
+      // Add dragging event listeners.
+      google.maps.event.addListener(marker, 'dragstart', function() {
+        updateMarkerAddress('إنتظار....');
+      });
+
+      google.maps.event.addListener(marker, 'drag', function() {
+        updateMarkerStatus('تحريك....');
+        updateMarkerPosition(marker.getPosition());
+      });
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        updateMarkerStatus('إنتهاء التحريك');
+        geocodePosition(marker.getPosition());
+        map.panTo(marker.getPosition());
+      });
+
+      google.maps.event.addListener(map, 'click', function(e) {
+        updateMarkerPosition(e.latLng);
+        geocodePosition(marker.getPosition());
+        marker.setPosition(e.latLng);
+        map.panTo(marker.getPosition());
+      });
+
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+}
+
+function geocodePosition(pos) {
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses && responses.length > 0) {
+      updateMarkerAddress(responses[0].formatted_address);
+    } else {
+      updateMarkerAddress('Cannot determine address at this location.');
+    }
+  });
+}
+
+function updateMarkerStatus(str) {
+  document.getElementById('markerStatus').innerHTML = str;
+}
+
+function updateMarkerPosition(latLng) {
+  document.getElementById('info').innerHTML = [
+    latLng.lat(),
+    latLng.lng()
+  ].join(', ');
+}
+
+function updateMarkerAddress(str) {
+  document.getElementById('address').innerHTML = str;
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLhW32ZSdyYZ5QWzebRW6sipI7pHYdecc&language=ar&region=EG&callback=initMap"></script>
+  </body>
+</html>

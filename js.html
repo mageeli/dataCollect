@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<select id="ddlViewBy">
+    <option value="1">test1</option>
+    <option value="2" selected="selected">test2</option>
+    <option value="3">test3</option>
+</select>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="arab"></p>
+
+<script>
+    function myFunction() {
+        var e = document.getElementById("ddlViewBy");
+        var strUser = e.options[e.selectedIndex].text;
+
+        document.getElementById("arab").innerHTML = strUser;
+    }
+</script>
+
+</body>
+</html>
